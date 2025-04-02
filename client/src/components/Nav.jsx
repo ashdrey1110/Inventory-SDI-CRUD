@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import ItemsAll from "./ItemsAll";
-import Nav from "./Nav";
 import './style.css'
+import MyInventory from './MyInventory';
+import Button from 'react-bootstrap/Button';
 
 
-export default function Home() {
+export default function Nav() {
 
     return (
         <>
-        <Nav />
-        <ItemsAll />
+        <Button variant="outline-light">Light</Button>
         </>
     )
 }
