@@ -2,22 +2,30 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Nav from "./Nav";
 import Button from "react-bootstrap/Button";
-
 import { useAuth } from "./Auth";
 
 export default function MyInventory() {
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
   const { user } = useAuth();
 
   // will need to get user id and pull items from there
-  console.log;
+  console.log(user);
 
   useEffect(() => {
     if (user?.id) {
       fetch(`http://localhost:8081/items/byuser/${user.id}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("could not fetch items");
+          }
+          return res.json();
+        })
         .then((data) => setItems(data));
     }
+    // if (!user?.id) {
+    //   navigate("/home");
+    // }
   }, [user?.id]);
 
   return (
@@ -25,7 +33,7 @@ export default function MyInventory() {
       <Nav />
 
       <div className="all-items">
-        <div className="all-items-title">My Items</div>
+        <div className="all-items-title">My Items - {user.id}</div>
         <div className="all-items-header">
           <div>Name</div>
           <div>Description</div>

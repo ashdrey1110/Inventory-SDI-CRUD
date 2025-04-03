@@ -68,7 +68,7 @@ export default function Login() {
         });
         const data = await res.json();
         if (res.ok) {
-          login(data.user);
+          login(data);
           navigate("/myinventory");
         } else {
           console.error("error:", data.error);

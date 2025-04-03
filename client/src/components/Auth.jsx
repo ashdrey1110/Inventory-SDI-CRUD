@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const Auth = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
   useEffect(() => {
     const userData = Cookies.get("user");
@@ -16,8 +16,12 @@ export const AuthProvider = ({ children }) => {
         Cookies.remove("user");
         setUser(null);
       }
+    } else {
+      setUser(null);
     }
   }, []);
+
+  console.log(user);
 
   const login = (userData) => {
     Cookies.set("user", JSON.stringify(userData));

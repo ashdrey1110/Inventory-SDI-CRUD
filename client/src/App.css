@@ -10,22 +10,26 @@ body {
 }
 
 .login-title,
-.create-account-title {
+.create-account-title,
+.add-item-title {
   display: flex;
   color: #ecedff;
   justify-content: center;
   font-size: 1.7em;
   padding-top: 20px;
 }
-.login-container .form-label {
+.login-container .form-label,
+.add-item-container .form-label {
   color: #ffffff;
 }
 
-.login-container .form-control {
+.login-container .form-control,
+.add-item-container .form-control {
   color: #d1d1d1;
 }
 
-.login-container .form-control:focus {
+.login-container .form-control:focus,
+.add-item-container .form-control:focus {
   border-color: #00d4ff;
   box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
   color: #d1d1d1;
@@ -120,4 +124,8 @@ body {
   width: 100%;
   font-size: 1.3em;
   padding: 10px;
+}
+
+.add-item-container {
+  width: 50%;
 }

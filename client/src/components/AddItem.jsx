@@ -9,7 +9,7 @@ export default function AddItem() {
   const { user } = useAuth();
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState(null);
+  const [quantity, setQuantity] = useState("");
 
   let inputHandler = async () => {
     try {
@@ -17,7 +17,7 @@ export default function AddItem() {
         userId: user.id,
         itemName: itemName.trim(),
         description: description.trim(),
-        quantity: quantity,
+        quantity: parseInt(quantity),
       };
 
       const response = await fetch("http://localhost:8081/items", {
@@ -34,7 +34,7 @@ export default function AddItem() {
 
       setItemName("");
       setDescription("");
-      setQuantity(null);
+      setQuantity("");
       navigate("/myinventory");
     } catch (error) {
       console.error("Error submitting item:", error);
@@ -43,7 +43,7 @@ export default function AddItem() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    inputHandler;
+    inputHandler();
   };
 
   return (
@@ -52,10 +52,10 @@ export default function AddItem() {
       <div className="add-item-container">
         <div className="add-item-title">Add New Item</div>
         <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formReview">
+          <Form.Group className="mb-3">
             <Form.Label>Item Name</Form.Label>
             <Form.Control
-              as="text"
+              type="text"
               placeholder="Insert Item Name"
               name="itemName"
               value={itemName}
@@ -63,27 +63,32 @@ export default function AddItem() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formReview">
+          <Form.Group className="mb-3">
             <Form.Label>Description</Form.Label>
             <Form.Control
-              as="text"
+              as="textarea"
               placeholder="Insert Description"
+              rows={3}
+              maxLength="1000"
               name="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formReview">
+          <Form.Group className="mb-3">
             <Form.Label>Quantity</Form.Label>
             <Form.Control
-              as="number"
+              type="number"
               name="quantity"
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
               required
             />
           </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
         </Form>
       </div>
     </>
