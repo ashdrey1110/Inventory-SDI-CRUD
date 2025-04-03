@@ -118,6 +118,20 @@ app.get("/fullitems", (req, res) => {
     );
 });
 
+app.get("/fullitems/:id", (req, res) => {
+  const id = req.params.id;
+  knex("items")
+    .join("users", "userId", "=", "users.id")
+    .select("items.*", "users.firstName", "users.lastName", "users.username")
+    .where("items.id", id)
+    .then((items) => res.status(200).json(items))
+    .catch((err) =>
+      res.status(404).json({
+        message: "Item data not available",
+      })
+    );
+});
+
 /*
 
 CREATE - POST

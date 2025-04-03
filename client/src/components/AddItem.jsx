@@ -12,7 +12,7 @@ export default function AddItem() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
 
-  const [loading, setLoading] = useState(true); // Initialize loading to true
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     if (currentUser?.id) {

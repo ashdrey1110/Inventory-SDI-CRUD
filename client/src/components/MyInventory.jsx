@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Nav from "./Nav";
 import Button from "react-bootstrap/Button";
+
 import { useAuth } from "./Auth";
 
 export default function MyInventory() {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  const { currentUser } = useAuth();
 
-  // will need to get user id and pull items from there
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -23,8 +23,6 @@ export default function MyInventory() {
         .then((data) => setItems(data));
     }
   }, [currentUser?.id]);
-
-  console.log("user is this: ", currentUser);
 
   return (
     <>
@@ -56,11 +54,11 @@ export default function MyInventory() {
             );
           })
         ) : (
-          <div className="no-items">No items yet </div>
+          <div className="no-items">Hmm... You don't seem to have any items yet </div>
         )}
       </div>
       <Link to="/addItem">
-        <Button variant="outline-light">AddItem</Button>
+        <Button variant="outline-light">Add Item</Button>
       </Link>
     </>
   );
