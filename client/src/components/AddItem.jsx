@@ -6,38 +6,53 @@ import { useAuth } from "./Auth";
 import Nav from "./Nav";
 
 export default function AddItem() {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
 
+  const [loading, setLoading] = useState(true); // Initialize loading to true
+
+  useEffect(() => {
+    if (currentUser?.id) {
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [currentUser?.id]);
+
   let inputHandler = async () => {
     try {
-      const itemData = {
-        userId: user.id,
-        itemName: itemName.trim(),
-        description: description.trim(),
-        quantity: parseInt(quantity),
-      };
+      if (currentUser?.id) {
+        const itemData = {
+          userId: currentUser.id,
+          itemName: itemName.trim(),
+          description: description.trim(),
+          quantity: parseInt(quantity),
+        };
 
-      const response = await fetch("http://localhost:8081/items", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(itemData),
-      });
+        const response = await fetch("http://localhost:8081/items", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(itemData),
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to submit item");
+        if (!response.ok) {
+          throw new Error("Failed to submit item");
+        }
+
+        setItemName("");
+        setDescription("");
+        setQuantity("");
+        navigate("/myinventory");
+      } else {
+        console.log(`that didnt work. user.is is ${currentUser.id}`);
       }
-
-      setItemName("");
-      setDescription("");
-      setQuantity("");
-      navigate("/myinventory");
     } catch (error) {
-      console.error("Error submitting item:", error);
+      console.error("Failed to submit item", error);
     }
   };
 
@@ -45,6 +60,14 @@ export default function AddItem() {
     e.preventDefault();
     inputHandler();
   };
+
+  if (loading) {
+    return (
+      <>
+        <Nav />
+      </>
+    );
+  }
 
   return (
     <>
@@ -86,6 +109,7 @@ export default function AddItem() {
               required
             />
           </Form.Group>
+
           <Button variant="primary" type="submit">
             Submit
           </Button>

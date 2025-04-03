@@ -149,7 +149,15 @@ app.post("/users/login", (req, res) => {
       } else {
         return bcrypt.compare(password, user.password).then((result) => {
           if (result) {
-            return res.status(200).json({ message: "Login successful!" });
+            const userData = {
+              id: user.id,
+              username: user.username,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            };
+            return res
+              .status(200)
+              .json({ message: "Login successful!", user: userData });
           } else {
             return res.status(404).json({ error: "User not found" });
           }

@@ -4,37 +4,46 @@ import Cookies from "js-cookie";
 const Auth = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
     const userData = Cookies.get("user");
     if (userData) {
       try {
-        setUser(JSON.parse(userData));
+        const parsedUserData = JSON.parse(userData);
+        console.log("all the data is this", parsedUserData);
+        console.log("the user data i want is this", parsedUserData.user);
+        setCurrentUser(parsedUserData.user);
       } catch (error) {
         console.error("error parsing: ", error);
         Cookies.remove("user");
-        setUser(null);
+        setCurrentser(null);
       }
     } else {
-      setUser(null);
+      setCurrentUser(null);
     }
   }, []);
 
-  console.log(user);
+  console.log("line 28 says user is this", currentUser);
 
   const login = (userData) => {
+    console.log(
+      "im currently in the login and im setting user to this",
+      userData
+    );
     Cookies.set("user", JSON.stringify(userData));
-    setUser(userData);
+    setCurrentUser(userData.user);
   };
 
   const logout = () => {
     Cookies.remove("user");
-    setUser(null);
+    setCurrentUser(null);
   };
 
   return (
-    <Auth.Provider value={{ user, login, logout }}>{children}</Auth.Provider>
+    <Auth.Provider value={{ currentUser, login, logout }}>
+      {children}
+    </Auth.Provider>
   );
 };
 

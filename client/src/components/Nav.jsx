@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import { useAuth } from "./Auth";
 
 export default function Nav() {
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -18,11 +18,18 @@ export default function Nav() {
         <Link to="/home">
           <Button variant="outline-light">Home</Button>
         </Link>
-        <Link to="/myinventory">
-          <Button variant="outline-light">My Inventory</Button>
-        </Link>
+        <div className="my-inventory-btn">
+          {currentUser ? (
+            <Link to="/myinventory">
+              <Button variant="outline-light">My Inventory</Button>
+            </Link>
+          ) : (
+            <></>
+          )}
+        </div>
+
         <div className="login-btn">
-          {user ? (
+          {currentUser ? (
             <Link to="/" onClick={handleLogout}>
               <Button variant="outline-light">Log out</Button>
             </Link>

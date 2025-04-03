@@ -7,14 +7,13 @@ import { useAuth } from "./Auth";
 export default function MyInventory() {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
 
   // will need to get user id and pull items from there
-  console.log(user);
 
   useEffect(() => {
-    if (user?.id) {
-      fetch(`http://localhost:8081/items/byuser/${user.id}`)
+    if (currentUser?.id) {
+      fetch(`http://localhost:8081/items/byuser/${currentUser.id}`)
         .then((res) => {
           if (!res.ok) {
             throw new Error("could not fetch items");
@@ -23,17 +22,16 @@ export default function MyInventory() {
         })
         .then((data) => setItems(data));
     }
-    // if (!user?.id) {
-    //   navigate("/home");
-    // }
-  }, [user?.id]);
+  }, [currentUser?.id]);
+
+  console.log("user is this: ", currentUser);
 
   return (
     <>
       <Nav />
 
       <div className="all-items">
-        <div className="all-items-title">My Items - {user.id}</div>
+        <div className="all-items-title">My Items</div>
         <div className="all-items-header">
           <div>Name</div>
           <div>Description</div>
