@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import './style.css'
+import Nav from "./Nav";
 
 export default function ItemDetails() {
     const { id } = useParams();
@@ -14,6 +14,7 @@ export default function ItemDetails() {
 
     return (
         <>
+        <Nav />
         <div className='item-details' >
             <div className='item-details-title' >Item Details</div>
             <div className='item-details-header'>

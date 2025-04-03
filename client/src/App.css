@@ -1,11 +1,123 @@
-#root {
-  margin: 20px;
-
+:root {
+  background-color: #242424;
 }
 
-.web-title{
+body {
+  margin: 25px;
+  --bs-body-bg: #242424;
+  display: grid;
+  place-items: center;
+}
+
+.login-title,
+.create-account-title {
   display: flex;
+  color: #ecedff;
+  justify-content: center;
+  font-size: 1.7em;
+  padding-top: 20px;
+}
+.login-container .form-label {
+  color: #ffffff;
+}
+
+.login-container .form-control {
+  color: #d1d1d1;
+}
+
+.login-container .form-control:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
+  color: #d1d1d1;
+}
+
+.web-title {
+  display: flex;
+  color: #ecedff;
   justify-content: center;
   font-size: 2.5em;
+  padding-top: 20px;
 }
 
+.web-subtitle {
+  display: flex;
+  color: #ecedff;
+  justify-content: center;
+  font-size: 1.3em;
+  padding-bottom: 20px;
+}
+
+.nav-container {
+  display: grid;
+  width: 95%;
+  grid-template-columns: 10% 20% 70%;
+}
+
+.login-btn {
+  display: flex;
+  justify-content: end;
+}
+
+.all-items,
+.item-details {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  width: 95%;
+}
+
+.all-items-title,
+.item-details-title {
+  display: flex;
+  font-weight: 600;
+  color: #ffffff;
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.all-items-header,
+.item-details-header {
+  display: grid;
+  width: 100%;
+  margin-top: 20px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 1.1em;
+  grid-template-columns: 25% 65% 10%;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: black;
+}
+
+.item-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25% 65% 10%;
+  padding: 10px;
+  background-color: rgb(43, 43, 43);
+}
+
+.item-name {
+  font-weight: 500;
+  color: #ecedff;
+  text-decoration: inherit;
+  padding-right: 15px;
+}
+.item-name:hover {
+  color: #afb2fa;
+}
+.item-desc,
+.item-quant {
+  padding-right: 15px;
+  color: #ecedff;
+}
+
+.no-items {
+  display: flex;
+  justify-content: center;
+  font-weight: 400;
+  color: #ffffff;
+  width: 100%;
+  font-size: 1.3em;
+  padding: 10px;
+}
